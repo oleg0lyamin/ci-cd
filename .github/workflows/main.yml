@@ -23,3 +23,14 @@ jobs:
           file: Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/image:latest
+  staging_production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run on remote
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" >> ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+          ssh ${{ secrets.SSH_URL }} "docker run -d -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/image:latest"
