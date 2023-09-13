@@ -9,9 +9,9 @@ jobs:
   build_production:
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout 123"
+      - name: "Checkout"
         uses: actions/checkout@v4.0.0
-      - uses: .github/actions/build-push
+      - uses: ./.github/actions/build-push
         with:
           SERVER_MESSAGE: ${{ secrets.SERVER_MESSAGE }}
           tag: ${{ secrets.DOCKER_HUB_USERNAME }}/image:latest
