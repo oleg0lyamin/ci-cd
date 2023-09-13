@@ -1,9 +1,7 @@
 name: Production
 run-name: ${{ github.actor }} is testing deployment to production
 
-on:
-  workflow_dispatch:
-    - master
+on: workflow_dispatch
 
 env:
   tag: ${{ secrets.DOCKER_HUB_USERNAME }}/image:latest
