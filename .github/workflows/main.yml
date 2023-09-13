@@ -12,8 +12,7 @@ jobs:
   build_production:
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout"
-        uses: actions/checkout@v4.0.0
+      - uses: actions/checkout@v4.0.0
       - uses: ./.github/actions/build-push
         with:
           SERVER_MESSAGE: ${{ secrets.SERVER_MESSAGE }}
@@ -24,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build_production]
     steps:
+      - uses: actions/checkout@v4.0.0
       - uses: ./.github/actions/deploy
         with:
           ssh_key: ${{ secrets.SSH_KEY }}
