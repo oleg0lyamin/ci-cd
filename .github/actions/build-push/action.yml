@@ -1,9 +1,13 @@
 name: "Build & Push"
 inputs:
   SERVER_MESSAGE:
+    required: true
   tag:
+    required: true
   docker_username:
+    required: true
   docker_access_token:
+    required: true
 runs:
   using: "composite"
   steps:
