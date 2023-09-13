@@ -1,4 +1,4 @@
-name: 'Deploy'
+name: "Deploy"
 inputs:
   tag:
     required: true
@@ -7,13 +7,13 @@ inputs:
   ssh_url:
     required: true
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Run on remote
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ inputs.ssh_key }}" >> ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
-          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-          ssh ${{ inputs.ssh_url }} "docker run -d -p 8080:8080 ${{ inputs.tag }}"
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ inputs.ssh_key }}" >> ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
+        echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+        ssh ${{ inputs.ssh_url }} "docker run -d -p 8080:8080 ${{ inputs.tag }}"
