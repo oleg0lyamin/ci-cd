@@ -9,7 +9,7 @@ jobs:
   build_production:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/build-push@v1
+      - uses: .github/actions/build-push
         with:
           SERVER_MESSAGE: ${{ secrets.SERVER_MESSAGE }}
           tag: ${{ secrets.DOCKER_HUB_USERNAME }}/image:latest
