@@ -23,7 +23,7 @@ jobs:
           file: Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/image:latest
-  staging_production:
+  deploy_production:
     runs-on: ubuntu-latest
     needs: [build_production]
     steps:
