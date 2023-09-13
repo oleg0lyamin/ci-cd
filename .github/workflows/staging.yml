@@ -1,9 +1,9 @@
-name: Testing Github Actions
-run-name: ${{ github.actor }} is testing out Github Actions
+name: Production
+run-name: ${{ github.actor }} is testing deployment to staging
 
 on:
-  push:
-  workflow_dispatch:
+  push: [master, develop]
+  workflow_dispatch: [master, develop]
 
 env:
   tag: ${{ secrets.DOCKER_HUB_USERNAME }}/image:latest
@@ -11,6 +11,7 @@ env:
 jobs:
   build_production:
     runs-on: ubuntu-latest
+    environment: staging
     steps:
       - uses: actions/checkout@v4.0.0
       - uses: ./.github/actions/build-push
@@ -21,7 +22,8 @@ jobs:
           docker_access_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   deploy_production:
     runs-on: ubuntu-latest
-    needs: [build_production]
+    needs: build_production
+    environment: staging
     steps:
       - uses: actions/checkout@v4.0.0
       - uses: ./.github/actions/deploy
