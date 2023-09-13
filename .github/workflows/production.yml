@@ -2,8 +2,10 @@ name: Production
 run-name: ${{ github.actor }} is testing deployment to production
 
 on:
-  push: [master]
-  workflow_dispatch: [master]
+  push:
+    - master
+  workflow_dispatch:
+    - master
 
 env:
   tag: ${{ secrets.DOCKER_HUB_USERNAME }}/image:latest
