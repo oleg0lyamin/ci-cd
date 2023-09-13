@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4.0.0
-      - uses: ./.github/actions/build-push.yml
+      - uses: .github/actions/build-push
         with:
           SERVER_MESSAGE: ${{ secrets.SERVER_MESSAGE }}
           tag: ${{ secrets.DOCKER_HUB_USERNAME }}/image:latest
