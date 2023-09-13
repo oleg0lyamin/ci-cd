@@ -17,7 +17,7 @@ jobs:
       - uses: ./.github/actions/build-push
         with:
           SERVER_MESSAGE: ${{ secrets.SERVER_MESSAGE }}
-          tag: $tag
+          tag: ${{ env.tag }}
           docker_username: ${{ secrets.DOCKER_HUB_USERNAME }}
           docker_access_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   deploy_production:
@@ -28,4 +28,4 @@ jobs:
         with:
           ssh_key: ${{ secrets.SSH_KEY }}
           ssh_url: ${{ secrets.SSH_URL }}
-          tag: $tag
+          tag: ${{ env.tag }}
