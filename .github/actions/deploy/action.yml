@@ -10,6 +10,7 @@ runs:
   using: "composite"
   steps:
     - name: Run on remote
+      shell: bash
       run: |
         mkdir -p ~/.ssh
         echo "${{ inputs.ssh_key }}" >> ~/.ssh/id_rsa
