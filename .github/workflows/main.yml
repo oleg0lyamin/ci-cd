@@ -9,7 +9,7 @@ jobs:
   build_production:
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout"
+      - name: "Checkout 123"
         uses: actions/checkout@v4.0.0
       - uses: .github/actions/build-push
         with:
