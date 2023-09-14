@@ -34,4 +34,6 @@ jobs:
           REMOTE_USER: ${{ secrets.SSH_USER }}
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
           SCRIPT_BEFORE: |
+            whoami
+            ls -al
             docker run -d -p 1234:8080 ghcr.io/${{ github.repository }}:latest
