@@ -9,7 +9,7 @@ on:
 jobs:
   build_test:
     runs-on: ubuntu-latest
-    environment: testing
+    environment: staging
     permissions:
       contents: read
       packages: write
@@ -34,4 +34,4 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            docker run -d -p 1234:8080 ghcr.io/${{ github.repository }}:latest -name dehancer-testing
+            docker run -d -p 1234:8080 ghcr.io/${{ github.repository }}:latest
