@@ -9,7 +9,7 @@ on:
 jobs:
   build_test:
     runs-on: ubuntu-latest
-    environment: staging
+    environment: testing
     permissions:
       contents: read
       packages: write
