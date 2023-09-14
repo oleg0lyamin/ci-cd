@@ -23,6 +23,8 @@ jobs:
         with:
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
+          build-args: |
+            SERVER_MESSAGE=${{ secrets.SERVER_MESSAGE }}
       - uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -31,4 +33,3 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             docker run -d -p 1234:8080 ghcr.io/${{ github.repository }}:latest
-

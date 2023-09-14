@@ -2,8 +2,8 @@ name: Test
 run-name: ${{ github.actor }} is testing deployment to test
 
 on:
-  push:
-    branches: ["test"]
+#  push:
+#   branches: ["test"]
   workflow_dispatch:
 
 jobs:
