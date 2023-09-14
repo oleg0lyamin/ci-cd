@@ -34,4 +34,4 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            docker run -d -p 1234:8080 ghcr.io/${{ github.repository }}:latest --name dehancer
+            docker run -d --name dehancer-cicd-testing -p 1234:8080 ghcr.io/${{ github.repository }}:latest 
