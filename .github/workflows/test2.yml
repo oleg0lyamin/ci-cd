@@ -9,7 +9,7 @@ on:
 jobs:
   build_test:
     runs-on: ubuntu-latest
-    environment: production
+    environment: testing
     permissions:
       contents: read
       packages: write
@@ -27,14 +27,11 @@ jobs:
           file: Dockerfile
           build-args: |
             SERVER_MESSAGE=${{ secrets.SERVER_MESSAGE }}
-      - uses: easingthemes/ssh-deploy@v4.1.8
+      - uses: appleboy/ssh-action@v1.0.0
         with:
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          REMOTE_PORT: ${{ secrets.SSH_PORT }}
-          REMOTE_USER: ${{ secrets.SSH_USER }}
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PEM_KEY }}
-          TARGET: "/home/${{ secrets.SSH_USER }}"
-          SCRIPT_BEFORE: |
-            whoami
-            ls -al
-            docker run -d -p 1234:8080 ghcr.io/${{ github.repository }}:latest
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            docker run -d -p 1234:8080 ghcr.io/${{ github.repository }}:latest -name dehancer-testing
