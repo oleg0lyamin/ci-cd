@@ -1,14 +1,14 @@
-name: Staging
+name: Test
+run-name: ${{ github.actor }} is testing deployment to test
 
 on:
   push:
-    branches: ["develop"]
+    branches: ["test"]
   workflow_dispatch:
 
 jobs:
-  build_staging:
+  build_test:
     runs-on: ubuntu-latest
-    environment: staging
     permissions:
       contents: read
       packages: write
@@ -23,21 +23,6 @@ jobs:
         with:
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
-          file: Dockerfile
-          build-args: |
-            APP_ENV="staging"
-            FBQ=${{ secrets.FBQ }}
-            GTM=${{ secrets.GTM }}
-            GTAG=${{ secrets.GTAG }}
-            GRAPHQL_ENDPOINT=${{ secrets.GRAPHQL_ENDPOINT }}
-            PADDLE_VENDOR_ID=${{ secrets.PADDLE_VENDOR_ID }}
-            PAYPAL_CLIENT_ID=${{ secrets.PAYPAL_CLIENT_ID }}
-            CLOUDPAYMENTS_PUBLIC_ID=${{ secrets.CLOUDPAYMENTS_PUBLIC_ID }}
-  deploy_staging:
-    runs-on: ubuntu-latest
-    needs: build_staging
-    environment: staging
-    steps:
       - run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" >> ~/.ssh/id_rsa
