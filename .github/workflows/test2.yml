@@ -1,0 +1,33 @@
+name: Test
+run-name: ${{ github.actor }} is testing deployment to test
+
+on:
+  push:
+    branches: ["test"]
+  workflow_dispatch:
+
+jobs:
+  build_test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4.0.0
+      - uses: docker/login-action@v3.0.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v5.0.0
+        with:
+          push: true
+          tags: ghcr.io/${{ github.repository }}:latest
+      - uses: cross-the-world/ssh-pipeline@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          user: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY}}
+          script: |
+            docker run -d -p 1234:8080 ghcr.io/${{ github.repository }}:latest
