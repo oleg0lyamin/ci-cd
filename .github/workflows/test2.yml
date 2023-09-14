@@ -32,7 +32,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.SSH_HOST }}
           REMOTE_PORT: ${{ secrets.SSH_PORT }}
           REMOTE_USER: ${{ secrets.SSH_USER }}
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PEM_KEY }}
           TARGET: "/home/${{ secrets.SSH_USER }}"
           SCRIPT_BEFORE: |
             whoami
