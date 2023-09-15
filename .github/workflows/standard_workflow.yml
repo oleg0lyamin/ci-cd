@@ -1,4 +1,4 @@
-name: Reviewed deployment workflow
+name: standard workflow
 
 on:
   workflow_call:
@@ -13,16 +13,13 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: ./.github/workflows/reusable/build.yml
+    uses: ./.github/workflows/build.yml
     with:
       environment: ${{ inputs.environment }}
     secrets: inherit
-  review:
-    needs: build
-    uses: ./.github/workflows/reusable/review.yml
   deploy:
-    needs: review
-    uses: ./.github/workflows/reusable/deploy.yml
+    needs: build
+    uses: ./.github/workflows/deploy.yml
     with:
       environment: ${{ inputs.environment }}
     secrets: inherit

@@ -13,7 +13,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: ./.github/workflows/reusable/reviewed_deployment.yml
+    uses: ./.github/workflows/reviewed_deployment.yml
     with:
       environment: production
     secrets: inherit
@@ -22,7 +22,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: ./.github/workflows/reusable/standard_workflow.yml
+    uses: ./.github/workflows/standard_workflow.yml
     with:
       environment: staging
     secrets: inherit
