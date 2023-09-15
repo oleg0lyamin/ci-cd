@@ -1,4 +1,4 @@
-name: Workflow
+name: Full workflow
 
 on:
   push:
@@ -6,41 +6,23 @@ on:
       - master
       - develop
       - "feature/**"
-  pull_request:
-    branches:
-      - master
 
 jobs:
-  build_production:
+  production:
     if: github.ref_name == 'master'
     permissions:
       contents: read
       packages: write
-    uses: ./.github/workflows/build.yml
-    with:
-      environment: production
-    secrets: inherit
-  review_production:
-    needs: build_production
-    uses: ./.github/workflows/review.yml
-  deploy_production:
-    needs: review_production
-    uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/reusable/reviewed_deployment.yml
     with:
       environment: production
     secrets: inherit
 
-  build_staging:
+  staging:
     permissions:
       contents: read
       packages: write
-    uses: ./.github/workflows/build.yml
-    with:
-      environment: staging
-    secrets: inherit
-  deploy_staging:
-    needs: build_staging
-    uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/reusable/standard_workflow.yml
     with:
       environment: staging
     secrets: inherit

@@ -1,0 +1,25 @@
+name: standard workflow
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+jobs:
+  build:
+    if: github.ref_name == 'master'
+    permissions:
+      contents: read
+      packages: write
+    uses: ./.github/workflows/reusable/build.yml
+    with:
+      environment: ${{ inputs.environment }}
+    secrets: inherit
+  deploy:
+    needs: build
+    uses: ./.github/workflows/reusable/deploy.yml
+    with:
+      environment: ${{ inputs.environment }}
+    secrets: inherit
