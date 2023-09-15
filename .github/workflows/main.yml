@@ -27,3 +27,18 @@ jobs:
     with:
       environment: production
     secrets: inherit
+
+  build_staging:
+    permissions:
+      contents: read
+      packages: write
+    uses: ./.github/workflows/build.yml
+    with:
+      environment: staging
+    secrets: inherit
+  deploy_staging:
+    needs: build_staging
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: staging
+    secrets: inherit
