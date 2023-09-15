@@ -15,4 +15,5 @@ jobs:
     uses: ./.github/workflows/env-specific.yml
     with:
       environment: ${{ matrix.environment }}
+      branch: ${{ github.branch_name }}
     secrets: inherit
