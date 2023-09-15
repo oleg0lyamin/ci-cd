@@ -1,0 +1,14 @@
+name: Main workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  main:
+    strategy:
+      matrix:
+        environment: [production, staging]
+    uses: ./.github/workflows/env-specific.yml
+    with:
+      environment: ${{ matrix.environment }}
+    secrets: inherit
