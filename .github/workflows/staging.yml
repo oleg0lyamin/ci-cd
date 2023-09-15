@@ -2,10 +2,11 @@ name: Staging
 run-name: ${{ github.actor }} is testing deployment to staging
 
 on:
-  push:
-    branches:
-      - master
-      - develop
+  workflow_dispatch:
+#  push:
+#    branches:
+#      - master
+#      - develop
 
 env:
   tag: ${{ secrets.DOCKER_HUB_USERNAME }}/image:latest
