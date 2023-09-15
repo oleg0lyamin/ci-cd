@@ -2,16 +2,17 @@ name: Workflow
 
 on:
   push:
-    branches: 
+    branches:
       - master
       - develop
-      - 'feature/**'
+      - "feature/**"
   pull_request:
     branches:
       - master
 
 jobs:
   build_production:
+    if: github.ref_name == 'master'
     permissions:
       contents: read
       packages: write
