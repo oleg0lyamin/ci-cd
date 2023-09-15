@@ -1,0 +1,14 @@
+name: Manual deployment into production
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    deploy:
+    needs: build
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: "production"
+    secrets: inherit
+
