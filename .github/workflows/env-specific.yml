@@ -1,1 +1,44 @@
+name: Environment-specific workflow
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4.0.0
+      - uses: docker/login-action@v3.0.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v5.0.0
+        with:
+          push: true
+          tags: ghcr.io/${{ github.repository }}-${{ inputs.environment }}:latest
+          file: Dockerfile
+          build-args: |
+            SERVER_MESSAGE=${{ secrets.SERVER_MESSAGE }}
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: 4001
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            docker run -d --name dehancer-cicd-testing -p 1234:8080 ghcr.io/${{ github.repository }}:latest
+    
 
