@@ -23,7 +23,7 @@ jobs:
     uses: ./.github/workflows/review.yml
   deploy_production:
     needs: review_production
-    uses: ./.github/workflow/deploy.yml
+    uses: ./.github/workflows/deploy.yml
     with:
       environment: production
     secrets: inherit
