@@ -9,6 +9,7 @@ on:
 
 jobs:
   production:
+    name: Production
     if: github.ref_name == 'master'
     permissions:
       contents: read
@@ -19,6 +20,7 @@ jobs:
     secrets: inherit
 
   staging:
+    name: Staging
     permissions:
       contents: read
       packages: write
