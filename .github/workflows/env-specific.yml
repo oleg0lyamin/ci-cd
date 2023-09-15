@@ -31,10 +31,19 @@ jobs:
           file: Dockerfile
           build-args: |
             SERVER_MESSAGE=${{ secrets.SERVER_MESSAGE }}
+            
+  review:
+    runs-on: ubuntu-latest
+    needs: build
+    if: inputs.branch == 'master
+    environment: review
+    steps:
+      - run: echo "Awaiting review..."
+    
   deploy:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-    needs: build
+    needs: review
     steps:
       - uses: appleboy/ssh-action@v1.0.0
         with:
