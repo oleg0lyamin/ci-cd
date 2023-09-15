@@ -1,0 +1,12 @@
+name: Build workflow
+
+on:
+  workflow_call:
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    environment: review
+    steps:
+      - run: echo "..."
+

@@ -1,19 +1,29 @@
-name: Main workflow
+name: Workflow
 
 on:
+  push:
+    branches: main
+      develop
+      'feature/**'
+  pull_request:
+    branches: main
   workflow_dispatch:
 
 jobs:
-  main:
+  build_production:
     permissions:
       contents: read
       packages: write
-    strategy:
-      matrix:
-        environment: [production, staging]
-      fail-fast: false
-    uses: ./.github/workflows/env-specific.yml
+    uses: ./.github/workflows/build.yml
     with:
-      environment: ${{ matrix.environment }}
-      branch: ${{ github.ref_name }}
+      environment: production
+    secrets: inherit
+  review_production:
+    needs: build_production
+    uses: ./.github/workflows/review.yml
+  deploy_production:
+    needs: review_production
+    uses: ./.github/workflow/deploy.yml
+    with:
+      environment: production
     secrets: inherit
