@@ -9,7 +9,6 @@ on:
 
 jobs:
   build:
-    if: github.ref_name == 'master'
     permissions:
       contents: read
       packages: write
